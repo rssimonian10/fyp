@@ -9,26 +9,17 @@ const index = catchAsync(async (req, res) => {
         if (response.status !== 200) {
             throw Error('Error in retrieving data');
         }
-        var liraSell = response.data.lirarate.sell[response.data.lirarate.sell.length - 1][1];
-        var liraBuy = response.data.lirarate.buy[response.data.lirarate.buy.length - 1][1];
-        var fuelData = [];
-        var fuelName;
-        var fuelPrice;
-        response.data.fuel.forEach(function(fuelType){
-            fuelName = fuelType.name;
-            fuelPrice = fuelType.data[fuelType.data.length -1][1];
-            fuelData.push({ fuelName: fuelName, fuelPrice});
-        });
-        res.render('index', {
+        // var liraSell = response.data.lirarate.sell[response.data.lirarate.sell.length - 1][1];
+        var liraBuy = response.data.lirarate.buy;
+
+        res.render('chatbot', {
             liraData: {
-                liraSell: liraSell,
-                liraBuy: liraBuy,
-                fuelData: fuelData,
-            }
+                liraBuy: liraBuy
+            }, session: req.session
         });
     } catch (error) {
         console.log('failed');
-        res.render('index', {title: 'Express', liraDataError: 'Error in retrieving data'});
+        res.render('chatbot', {title: 'FYP', liraDataError: 'Error in retrieving data', session: req.session});
     }
 });
 

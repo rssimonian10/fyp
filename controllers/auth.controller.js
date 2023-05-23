@@ -21,7 +21,8 @@ const register = catchAsync(async (req, res) => {
 
     res.render('auth/register', {
       error: error,
-      emailValidationError: emailValidationError
+      emailValidationError: emailValidationError,
+      session: req.session
     });
   }
 });
@@ -33,6 +34,7 @@ const registerGet = catchAsync(async (req, res) => {
     email: "",
     password: "",
     messages: {},
+    session: req.session
   });
 });
 
@@ -44,6 +46,7 @@ const login = catchAsync(async (req, res) => {
   } catch (error) {
     res.render('/login', {
       error: error,
+      session: req.session
     });
   }
 });
@@ -54,6 +57,7 @@ const getLogin = catchAsync(async (req, res) => {
     email: "",
     password: "",
     messages: {},
+    session: req.session
   });
 });
 

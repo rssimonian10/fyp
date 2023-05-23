@@ -24,11 +24,12 @@ const index = catchAsync(async (req, res) => {
                 liraSell: liraSell,
                 liraBuy: liraBuy,
                 fuelData: fuelData,
-            }
+            },
+            session: req.session,
         });
     } catch (error) {
         console.log('failed');
-        res.render('index', {title: 'Express', liraDataError: 'Error in retrieving data'});
+        res.render('index', {title: 'Express', liraDataError: 'Error in retrieving data', session: req.session});
     }
 });
 

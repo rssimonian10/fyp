@@ -2,6 +2,7 @@ var express = require('express');
 const userRoute = require('./users');
 const authRoute = require('./auth');
 var liraController = require('../controllers/liraRate.controller');
+var chatbotController = require('../controllers/chatbot.controller');
 
 
 var router = express.Router();
@@ -19,17 +20,15 @@ const defaultRoutes = [
 
 /* GET home page. */
 router.get('/', liraController.index);
+router.get('/chatbot', chatbotController.index);
 router.get('/news', function(req, res, next) {
-  res.render('news', { title: 'Express' });
-});
-router.get('/chatbot', function(req, res, next) {
-  res.render('chatbot', { title: 'Express' });
+  res.render('news', { title: 'FYP', session: req.session });
 });
 router.get('/about-us', function(req, res, next) {
-  res.render('about-us', { title: 'Express' });
+  res.render('about-us', { title: 'FYP', session: req.session });
 });
 router.get('/contact-us', function(req, res, next) {
-  res.render('contact-us', { title: 'Express' });
+  res.render('contact-us', { title: 'FYP', session: req.session });
 });
 
 defaultRoutes.forEach((route) => {

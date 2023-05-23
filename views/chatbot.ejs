@@ -3,7 +3,7 @@
 <head>
     <title>Chatbot Example</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" `>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Project</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -13,7 +13,6 @@
         body {
             background-color: black;
             font-family: Arial, sans-serif;
-
         }
 
         .chatbot-container {
@@ -21,9 +20,8 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            width: 400px;
-            margin-left: 25rem;
-            margin-top: 8rem;
+            min-width: 400px;
+            margin: 5px
         }
 
         .chatbot-header {
@@ -40,7 +38,7 @@
         .chatbot-body {
             padding: 15px;
             text-align: left;
-            max-height: 300px;
+            max-height: 700px;
             overflow-y: auto;
         }
 
@@ -78,8 +76,6 @@
             padding: 10px;
             width: 100%;
         }
-
-
     </style>
 </head>
 <body>
@@ -105,12 +101,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/chatbot">ChatBot</a>
                     </li>
+                    <% if (session.user) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-info" href="#"><%- session.user.name %></a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
         </div>
     </nav>
 </section>
-<section>
+<section class="container">
     <div class="chatbot-container">
         <div class="chatbot-header">
             <h1>Lirabot</h1>
@@ -121,41 +132,25 @@
             </div>
         </div>
         <input type="text" class="chat-input" id="userInput" placeholder="Type your message...">
-        <button class="sendButton" onclick="handleUserInput()">Send</button>
+        <button class="send-button" id="sendButton" onclick="handleUserInput()">Send</button>
     </div>
-
 </section>
 
 <script>
+    var exchangeRateData = <%= JSON.stringify(liraData['liraBuy']) %>;
 
-    // Fetch the JSON data
-    fetch("https://lirarate.org/wp-json/lirarate/v2/all?currency=LBP&_ver=t202352310", {
-        "headers": {
-            "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbGlyYXJhdGUub3JnIiwiaWF0IjoxNjUzMTE2NzgwLCJuYmYiOjE2NTMxMTY3ODAsImV4cCI6MTY4NTI1NzU4MCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMiJ9fX0.lLQIht7YxgStkZwntAx2RMRWwNQ8f7mMkznfhCLJXAc",
-        },
-        "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": null,
-        "method": "GET"
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Store the fetched JSON data for later use
-            var exchangeRateData = data.lirarate.buy;
-            console.log("correct", exchangeRateData);
+    // Add event listener for the send button
+    document.getElementById("sendButton").addEventListener("click", function () {
+        handleUserInput(exchangeRateData);
+    });
 
-            // Add event listener for the send button
-            document.getElementById("sendButton").addEventListener("click", function () {
-                handleUserInput(exchangeRateData);
-            });
+    // Add event listener for the Enter key press
+    document.getElementById("userInput").addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+            handleUserInput(exchangeRateData);
+        }
+    });
 
-            // Add event listener for the Enter key press
-            document.getElementById("userInput").addEventListener("keyup", function (event) {
-                if (event.key === "Enter") {
-                    handleUserInput(exchangeRateData);
-                }
-            });
-        })
-        .catch(error => console.error("Error fetching exchange rate data:", error));
 
     // Function to handle user input
     function handleUserInput(exchangeRateData) {
@@ -171,22 +166,27 @@
             if (userInput.includes("exchange rate") && (userInput.includes("usd") || userInput.includes("dollar"))) {
                 // Respond with the current exchange rate for USD to LBP
                 var currentRate = exchangeRateData[exchangeRateData.length - 1][1];
+                addUserMessage(userInput);
                 addChatbotMessage("The current exchange rate for USD to LBP is " + currentRate + ".");
             } else if (userInput.includes("trend")) {
                 // Check the trend of the exchange rate (upwards, downwards, or stable)
                 var trend = getExchangeRateTrend(exchangeRateData);
+                addUserMessage(userInput);
                 addChatbotMessage("The exchange rate for USD to LBP is " + trend + ".");
             } else if (userInput.includes("compare") && userInput.includes("yesterday")) {
                 // Compare the current exchange rate to yesterday's rate
                 var currentRate = exchangeRateData[exchangeRateData.length - 1][1];
                 var yesterdayRate = exchangeRateData[exchangeRateData.length - 2][1];
                 var comparison = compareExchangeRates(currentRate, yesterdayRate);
+                addUserMessage(userInput);
                 addChatbotMessage(comparison);
             } else if (userInput.includes("historical exchange rates")) {
                 // Provide historical exchange rates
                 var historicalRates = getHistoricalExchangeRates(exchangeRateData);
+                addUserMessage(userInput);
                 addChatbotMessage("Here are some historical exchange rates for USD to LBP: " + historicalRates.join(", "));
             } else {
+                addUserMessage(userInput);
                 // Respond with a default message if user input doesn't match any specific query
                 addChatbotMessage("I'm sorry, but I couldn't understand your question. How can I assist you further?");
             }
@@ -201,6 +201,15 @@
         var chatbotBody = document.getElementById("chatbot-body");
         var chatbotMessage = document.createElement("div");
         chatbotMessage.classList.add("chatbot-message");
+        chatbotMessage.innerHTML = "<p>" + message + "</p>";
+        chatbotBody.appendChild(chatbotMessage);
+    }
+
+    // Function to add a message from the chatbot to the chatbot body
+    function addUserMessage(message) {
+        var chatbotBody = document.getElementById("chatbot-body");
+        var chatbotMessage = document.createElement("div");
+        chatbotMessage.classList.add("user-message");
         chatbotMessage.innerHTML = "<p>" + message + "</p>";
         chatbotBody.appendChild(chatbotMessage);
     }

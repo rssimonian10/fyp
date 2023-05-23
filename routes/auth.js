@@ -5,11 +5,11 @@ const authValidation = require('../validations/auth.validation');
 var authController = require('../controllers/auth.controller');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    console.log(req.session.user);
-    console.log(req.session);
-    res.send(`auth route sessionId: ${req.session.user.name}`);
-});
+// router.get('/', function(req, res, next) {
+//     console.log(req.session.user);
+//     console.log(req.session);
+//     res.send(`auth route sessionId: ${req.session.user.name}`);
+// });
 
 router.get('/register',  authController.registerGet);
 router.post('/register', validate(authValidation.register), authController.register);
