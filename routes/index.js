@@ -1,6 +1,8 @@
 var express = require('express');
 const userRoute = require('./users');
 const authRoute = require('./auth');
+var liraController = require('../controllers/liraRate.controller');
+
 
 var router = express.Router();
 
@@ -16,9 +18,7 @@ const defaultRoutes = [
 ];
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', liraController.index);
 router.get('/news', function(req, res, next) {
   res.render('news', { title: 'Express' });
 });
