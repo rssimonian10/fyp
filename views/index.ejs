@@ -1,11 +1,137 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"`>
+    <title>Senior Project</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <section class="section-navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Lebanon Starter Kit</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/about-us"  >About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact-us">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/news">News</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/chatbot">ChatBot</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
+    <section class="section-main position-relative">
+      <section class="section-carousel">
+        <h1 class="text-md-center text-center mt-md-1 mt-3 position-absolute">Welcome To Lebanon Starter Kit</h1>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          </div>
+          <div class="carousel-inner mt-md-5">
+            <div class="carousel-item active">
+              <img src="assets/add1.jpeg" class="d-block w-100 " alt="Image 1">
+            </div>
+            <div class="carousel-item">
+              <img src="assets/add2.jpeg" class="d-block w-100" alt="Image 2">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section-dollar-title">
+           <h1 class="text-md-center text-center mt-md-5 mt-5">Your One-Stop Source for Up-to-Date Dollar Rates in Lebanon: <br> Never Miss a Currency Update Again</h1>
+      </section>
+
+  <section class="section-dollar mt-md-5 mt-5">
+    <div class="container">
+      <div class="image">
+        <img src="assets/dollarsign.jpeg" alt="Dollar Image"class="img-fluid w-100" >
+      </div>
+      <div class="rate">
+        <h2>Dollar Rate Today</h2>
+        <p>1 USD = 93000 LBP</p>
+      </div>
+    </div>
+    
+
+
+   </section>
+
+   <section class="fuel-title-section">
+    <h1 class="text-center mt-md-5 mt-5">Fuel Your Knowledge: Latest Daily Fuel Prices in Lebanon</h1>
+   </section>
+
+   <section class="section-fuel mt-md-5 mt-5">
+    <div class="container">
+      <div class="image">
+        <img src="assets/fuel.jpg" alt="Fuel Image" class="img-fluid w-100" >
+      </div>
+      <div class="rate">
+        <h2>Fuel Rate Today</h2>
+        <p>1 USD = 93000 LBP</p>
+      </div>
+    </div>
+    
+
+
+   </section>
+
+
+   <section>
+    <h2 class="text-md-center text-center mt-md-5 mt-5">Currency Converter</h2>
+   </section>
+
+   <section class="section-fuel mt-md-5 mt-5">
+    <div class="container">
+      <div class="image">
+        <img src="assets/converter.jpg" alt="" class="img-fluid w-auto mx-auto d-block" >
+      </div>
+      <div class="rate">
+<input type="number" id="lbp-input" placeholder="Enter in LBP"> 
+<select id="currency-select">
+  <option value="usd">USD</option>
+  <option value="eur">EUR</option>
+</select>
+<button onclick="convert()">Convert</button>
+<p id="result"></p>
+      </div>
+
+
+   
+
+
+
+    </section>
+    
+    <footer class="mt-md-5 mt-5">
+      <p >Copyright © 2023. All rights reserved.</p>
+    </footer>
+    
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
 </html>

@@ -5,7 +5,7 @@ const register = catchAsync(async (req, res) => {
   try {
     req.session.user = await userService.createUser(req.body);
 
-    res.redirect('/auth');
+    res.redirect('/');
   } catch (error) {
     let emailValidationError;
     if (error.keyPattern && error.keyPattern.email === 1) {
@@ -36,27 +36,36 @@ const registerGet = catchAsync(async (req, res) => {
   });
 });
 
-// const login = catchAsync(async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await authService.loginUserWithEmailAndPassword(email, password);
-//   const tokens = await tokenService.generateAuthTokens(user);
-//   res.send({ user, tokens });
-// });
+const login = catchAsync(async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    req.session.user = await authService.loginUserWithEmailAndPassword(email, password);
+    res.redirect('/');
+  } catch (error) {
+    res.render('/login', {
+      error: error,
+    });
+  }
+});
 
-// const logout = catchAsync(async (req, res) => {
-//   await authService.logout(req.body.refreshToken);
-//   res.status(httpStatus.NO_CONTENT).send();
-// });
-//
-// const refreshTokens = catchAsync(async (req, res) => {
-//   const tokens = await authService.refreshAuth(req.body.refreshToken);
-//   res.send({ ...tokens });
-// });
+const getLogin = catchAsync(async (req, res) => {
+  res.render("auth/login", {
+    title: "Login",
+    email: "",
+    password: "",
+    messages: {},
+  });
+});
+
+const logout = catchAsync(async (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
 
 module.exports = {
   register,
   registerGet,
-  // login,
-  // logout,
-  // refreshTokens,
+  login,
+  logout,
+  getLogin,
 };

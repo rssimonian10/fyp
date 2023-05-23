@@ -10,7 +10,7 @@ const defaultRoutes = [
     route: userRoute
   },
   {
-    path: '/auth',
+    path: '/',
     route: authRoute,
   }
 ];
@@ -18,6 +18,18 @@ const defaultRoutes = [
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+router.get('/news', function(req, res, next) {
+  res.render('news', { title: 'Express' });
+});
+router.get('/chatbot', function(req, res, next) {
+  res.render('chatbot', { title: 'Express' });
+});
+router.get('/about-us', function(req, res, next) {
+  res.render('about-us', { title: 'Express' });
+});
+router.get('/contact-us', function(req, res, next) {
+  res.render('contact-us', { title: 'Express' });
 });
 
 defaultRoutes.forEach((route) => {

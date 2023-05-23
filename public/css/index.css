@@ -1,0 +1,80 @@
+body {
+    /*background-image: url("v748-toon-103.jpg");*/
+    background-image: url("../assets/v748-toon-103.jpg");
+    background-size: cover;
+    /* background-repeat: no-repeat;*/
+    background-position: center;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.section-navbar {
+    background-color: rgba(0, 0, 0, 0.591);
+
+}
+
+.section-main {
+    height: 90vh;
+}
+
+.section-main h1 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.section-first img {
+    border-bottom-right-radius: 100px;
+    /* filter: grayscale(1); */
+}
+
+.section-second img {
+    border-top-left-radius: 100px;
+    /* filter: grayscale(1); */
+}
+
+.carousel-inner img {
+    height: 300px;
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+.image {
+    flex: 1;
+
+}
+
+.image img {
+    border-radius: 2rem;
+
+}
+
+.rate {
+    flex: 1;
+    text-align: center;
+}
+
+.rate h2 {
+    font-size: 2em;
+
+}
+
+.rate p {
+    font-size: 1.5em;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
