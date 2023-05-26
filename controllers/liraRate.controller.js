@@ -1,10 +1,11 @@
 const catchAsync = require("../utils/catchAsync");
+const generateDatePattern = require("../utils/generateDatePattern");
 const axios = require('axios');
 
 const index = catchAsync(async (req, res) => {
     try {
         // Make a GET request to an external API
-        const response = await axios.get(process.env.LIRARATE_API);
+        const response = await axios.get(process.env.LIRARATE_API)
 
         if (response.status !== 200) {
             throw Error('Error in retrieving data');
@@ -29,7 +30,9 @@ const index = catchAsync(async (req, res) => {
         });
     } catch (error) {
         console.log('failed');
-        res.render('index', {title: 'Express', liraDataError: 'Error in retrieving data', session: req.session});
+        res.render('index', {title: 'Express', 
+        liraDataError: 'Error in retrieving data',
+         session: req.session});
     }
 });
 
