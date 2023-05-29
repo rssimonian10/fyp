@@ -5,7 +5,7 @@ const axios = require('axios');
 const index = catchAsync(async (req, res) => {
     try {
         // Make a GET request to an external API
-        const response = await axios.get(process.env.LIRARATE_API)
+        const response = await axios.get(process.env.LIRARATE_API + '&_ver=' + generateDatePattern())
 
         if (response.status !== 200) {
             throw Error('Error in retrieving data');

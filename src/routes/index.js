@@ -21,6 +21,7 @@ const defaultRoutes = [
 /* GET home page. */
 router.get('/', liraController.index);
 router.get('/chatbot', chatbotController.index);
+router.post('/api/chatbot', chatbotController.api);
 router.get('/news', function(req, res, next) {
   res.render('news', { title: 'FYP', session: req.session });
 });
